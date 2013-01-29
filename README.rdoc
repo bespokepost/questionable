@@ -11,15 +11,17 @@ the questions and recording your users' answers.
 
 == Installation
 
-In your Gemfile:
+Add Questionable to your Gemfile:
 
   gem 'questionable_surveys'
-  bundle install
 
+Then run:
+
+  bundle install
   rake questionable:install:migrations
   rake db:migrate
 
-Optionally, in app/assets/stylesheet/application.css:
+Optionally add the following to app/assets/stylesheet/application.css:
 
  *= require questionable
 
