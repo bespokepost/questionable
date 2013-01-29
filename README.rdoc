@@ -16,7 +16,10 @@ In your Gemfile:
   gem 'questionable_surveys'
   bundle install
 
-In app/assets/stylesheet/application.css:
+  rake questionable:install:migrations
+  rake db:migrate
+
+Optionally, in app/assets/stylesheet/application.css:
 
  *= require questionable
 
