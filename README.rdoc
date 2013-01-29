@@ -13,7 +13,7 @@ the questions and recording your users' answers.
 
 In your Gemfile:
 
-  gem 'questionable'
+  gem 'questionable_surveys'
   bundle install
 
 In app/assets/stylesheet/application.css:
