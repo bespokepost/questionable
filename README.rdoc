@@ -28,7 +28,7 @@ Create one or more Questions. Supported input_types include select, multiselect,
 radio, checkboxes, and string.
 
   # input_type may be select, multiselect, radio, checkboxes, or string.
-  q = Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important')
+  q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important')
 
 Add Options, unless input_type is 'string'
 
@@ -43,11 +43,11 @@ or something general like "preferences", which we can pass here as a symbol or s
 e.g.
 
   @product = Product.find(123)
-  Assignment.create(question_id: q.id, subject: @product)
+  Questionable::Assignment.create(question_id: q.id, subject: @product)
 
 or
 
-  Assignment.create(question_id: q.id, subject_type: 'preferences')
+  Questionable::Assignment.create(question_id: q.id, subject_type: 'preferences')
 
 ===  In your controller
 
