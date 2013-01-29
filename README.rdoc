@@ -1,0 +1,84 @@
+= Questionable
+
+Questionable is a Rails engine that make it easier to create and answer surveys through a web interface.
+
+You can create your questions and options through the included 
+{ActiveAdmin}[https://github.com/gregbell/active_admin] interface.
+If ActiveAdmin is installed in your application, Questionable will automatically add admin pages.
+
+Then you can use the included partial template and controller for displaying 
+the questions and recording your users' answers.
+
+== Installation
+
+In your Gemfile:
+
+  gem 'questionable'
+  bundle install
+
+In app/assets/stylesheet/application.css:
+
+ *= require questionable
+
+== Usage
+
+=== Create some questions
+
+Create one or more Questions. Supported input_types include select, multiselect,
+radio, checkboxes, and string.
+
+  # input_type may be select, multiselect, radio, checkboxes, or string.
+  q = Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important')
+
+Add Options, unless input_type is 'string'
+
+  q.options.create(title: 'Red',   position: 1)
+  q.options.create(title: 'Green', position: 2)
+  q.options.create(title: 'Blue',  position: 2)
+
+Questions must be assigned a 'subject' before they are used. 
+They subject can be either an object, via a polymorphic association, 
+or something general like "preferences", which we can pass here as a symbol or string.
+
+e.g.
+
+  @product = Product.find(123)
+  Assignment.create(question_id: q.id, subject: @product)
+
+or
+
+  Assignment.create(question_id: q.id, subject_type: 'preferences')
+
+===  In your controller
+
+Here's we fetch question-assignments for a particular symbol:
+
+  @assignments = Questionable::Assignment.with_subject(current_user, :preferences)
+
+and here, for a product object:
+
+  @product = Product.find(params[:id])
+  @assignments = Questionable::Assignment.with_subject(current_user, @product)
+
+===  In your view 
+
+With HAML
+
+  = render partial: 'questionable/assignments/form', locals: { assignments: @assignments }
+
+Or ERB
+
+  <%= render partial: 'questionable/assignments/form', locals: { assignments: @assignments } %>
+
+=== Running Tests
+
+  rake spec
+
+== Author
+
+Written by {Nick Urban}[https://github.com/nickurban/] at {Bespoke Post}[https://www.bespokepost.com/].
+
+== Licence
+
+This project uses the MIT-LICENSE.
+
