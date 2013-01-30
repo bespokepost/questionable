@@ -43,10 +43,11 @@
           - date = selected_answers.first.message.blank? ? nil : selected_answers.first.message.to_date
 
           .date
-            = select_month date, {prompt: date.blank?}, name: "#{field}[month]"
-            = select_day   date, {prompt: date.blank?}, name: "#{field}[day]"
+            = select_month date, {prompt: date.blank?}, name: "#{field}[month]", class: 'select-month'
+            = select_day   date, {prompt: date.blank?}, name: "#{field}[day]", class: 'select-day'
             = select_year  date, 
-              {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year}, name: "#{field}[year]"
+              {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year}, 
+              name: "#{field}[year]", class: 'select-year'
 
   .form-actions
     - label = local_assigns.has_key?(:submit_label) ? submit_label : 'Save'
