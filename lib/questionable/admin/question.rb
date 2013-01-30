@@ -9,7 +9,7 @@ if defined?(ActiveAdmin)
         f.input :note
         f.input :category
         f.input :input_type, :as => :select, 
-          :collection => %w(select radio checkboxes multiselect statement string), :include_blank => false
+          :collection => %w(select radio checkboxes multiselect date string statement), :include_blank => false
       end
       f.actions
     end

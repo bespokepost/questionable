@@ -13,9 +13,10 @@
       - field = "answers[#{a.id}][]"
 
       - if q.accepts_multiple_answers?
+        / Some inputs can take multiple answers (namely multiselects and checkboxes)
         - if q.input_type == 'checkboxes'
           - q.options.each do |opt|
-            = label_tag nil, class: 'checkbox' do
+            %label.checkbox
               = opt.title
               = check_box_tag field, opt.id, selected_option_ids.include?(opt.id)
         - elsif q.input_type == 'multiselect'
@@ -23,18 +24,31 @@
             options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids), multiple: true
 
       - else
+        / Most inputs just take a single answer
         - if q.input_type == 'select' 
           = select_tag "answers[#{a.id}][]", 
             options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first)
         - elsif q.input_type == 'radio' 
           - q.options.each do |opt|
-            = label_tag nil, class: 'radio' do
+            %label.radio
               = opt.title
               %input{type: :radio, name: field, value: opt.id, checked: selected_option_ids.first == opt.id}
               =# radio_button_tag "answers[#{a.id}][]", opt.id, selected_option_ids.first
         - elsif q.input_type == 'string'
           = text_field_tag field, selected_answers.first.message
+        - elsif q.input_type == 'date'
+          =# select_date nil, field, order: [:month, :day, :year]
+          =# date_select (Date.today - 20.years), field, order: [:month, :day, :year]
+
+          - date = selected_answers.first.message.blank? ? nil : selected_answers.first.message.to_date
+
+          .date
+            = select_month date, {prompt: date.blank?}, name: "#{field}[month]"
+            = select_day   date, {prompt: date.blank?}, name: "#{field}[day]"
+            = select_year  date, 
+              {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year}, name: "#{field}[year]"
 
   .form-actions
-    = submit_tag 'Save Preferences', class: 'btn'
+    - label = local_assigns.has_key?(:submit_label) ? submit_label : 'Save'
+    = submit_tag label, class: 'btn'
 

@@ -45,6 +45,9 @@ module Questionable
           if assignment.question.input_type == 'string'
             message = answers.first
             assignment.answers.create(user_id: current_user.id, message: message)
+          elsif assignment.question.input_type == 'date'
+            date = answers.first
+            assignment.answers.create(user_id: current_user.id, message: "#{date[:year]}-#{date[:month]}-#{date[:day]}")
           else
             option_ids = answers
             option_ids.each do |oid|
