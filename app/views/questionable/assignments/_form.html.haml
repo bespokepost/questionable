@@ -1,6 +1,4 @@
 
-=# answer.inspect
-
 = form_tag questionable.answers_create_multiple_path, method: :post, class: 'questions-form' do
   - assignments.each do |a|
     .question-block{:id => a.question.title.to_url}
@@ -40,6 +38,3 @@
   .form-actions
     = submit_tag 'Save Preferences', class: 'btn'
 
-%hr
-%h2 Mockup Below
-%hr
