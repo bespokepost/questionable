@@ -55,8 +55,7 @@ module Questionable
       end
 
       it "should not create an answer with a blank select" do
-        Answer.count.should == 0
-
+        Answer.count.should == 0  # sanity check
         expect {
           post :create_multiple, answers: { assignment1.id => [ '' ] }, use_route: :answers
         }.not_to change { Answer.count }
