@@ -1,7 +1,7 @@
 
 = form_tag questionable.answers_create_multiple_path, method: :post, class: 'questions-form' do
   - assignments.each do |a|
-    .question-block{:id => a.question.title.to_url}
+    .question-block{:id => "qa_#{a.id}", class: "question-#{a.question.id}"}
       - q = a.question
 
       .question-and-note
