@@ -27,7 +27,7 @@
         / Most inputs just take a single answer
         - if q.input_type == 'select' 
           = select_tag "answers[#{a.id}][]", 
-            options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first)
+            options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first), prompt: 'Choose an option'
         - elsif q.input_type == 'radio' 
           - q.options.each do |opt|
             %label.radio

@@ -51,7 +51,9 @@ module Questionable
           else
             option_ids = answers
             option_ids.each do |oid|
-              assignment.answers.create(user_id: current_user.id, option_id: oid)
+              unless oid.blank?
+                assignment.answers.create(user_id: current_user.id, option_id: oid)
+              end
             end
           end
 

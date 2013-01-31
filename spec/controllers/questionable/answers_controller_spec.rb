@@ -37,7 +37,6 @@ module Questionable
 
     describe "POST #create_multiple" do
       it "should create answers for each question answered" do
-
         post :create_multiple, answers: { assignment1.id => [ q1_option1.id ], assignment2.id => [ q2_option2.id ]  }, use_route: :answers
         assignment1.answered_options.should == [q1_option1]
         assignment2.answered_options.should == [q2_option2]
@@ -53,6 +52,14 @@ module Questionable
 
         post :create_multiple, answers: { assignment1.id => [ q1_option2.id ] }, use_route: :answers
         assignment1.answered_options.should == [q1_option2]
+      end
+
+      it "should not create an answer with a blank select" do
+        Answer.count.should == 0
+
+        expect {
+          post :create_multiple, answers: { assignment1.id => [ '' ] }, use_route: :answers
+        }.not_to change { Answer.count }
       end
     end
   
