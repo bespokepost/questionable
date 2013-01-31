@@ -12,6 +12,9 @@
 
 .questions-form select {
   width: 10em; 
+}
+
+.questions-form .compact-input {
   vertical-align: top;
 }
 
@@ -20,7 +23,7 @@
 }
 
 .questions-form .question-and-note, 
-.questions-form .date-fields { 
+.questions-form .compact-input {
   display: inline-block; 
 }
 
