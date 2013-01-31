@@ -6,6 +6,21 @@
 .questions-form .note { font-size: 0.8em; }
 .questions-form .question-block { margin-bottom: 20px; }
 
-.questions-form .select-month { width: 9em; }
+.questions-form .select-month { width: 10em; }
 .questions-form .select-day   { width: 4em; }
 .questions-form .select-year  { width: 5em; }
+
+.questions-form select {
+  width: 10em; 
+  vertical-align: top;
+}
+
+.questions-form .question-and-note {
+  width: 320px;
+}
+
+.questions-form .question-and-note, 
+.questions-form .date-fields { 
+  display: inline-block; 
+}
+

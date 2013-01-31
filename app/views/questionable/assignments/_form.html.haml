@@ -4,9 +4,9 @@
     .question-block{:id => a.question.title.to_url}
       - q = a.question
 
-      .question= q.title
-      - if q.note
-        .note= q.note
+      .question-and-note
+        .question= q.title
+        .note= q.note if q.note
 
       - selected_answers = a.answers_for_user(current_user)
       - selected_option_ids = selected_answers.map(&:option_id)
@@ -42,7 +42,7 @@
 
           - date = selected_answers.first.message.blank? ? nil : selected_answers.first.message.to_date
 
-          .date
+          .date-fields
             = select_month date, {prompt: date.blank?}, name: "#{field}[month]", class: 'select-month'
             = select_day   date, {prompt: date.blank?}, name: "#{field}[day]", class: 'select-day'
             = select_year  date, 
