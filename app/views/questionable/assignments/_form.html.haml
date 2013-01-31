@@ -25,31 +25,32 @@
             options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids), multiple: true
 
       - else
-        .compact-input
-          / Most inputs just take a single answer
-          - if q.input_type == 'select' 
-            = select_tag "answers[#{a.id}][]", 
-              options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first), prompt: 'Choose an option'
-          - elsif q.input_type == 'radio' 
-            - q.options.each do |opt|
-              %label.radio
-                = opt.title
-                %input{type: :radio, name: field, value: opt.id, checked: selected_option_ids.first == opt.id}
-                =# radio_button_tag "answers[#{a.id}][]", opt.id, selected_option_ids.first
-          - elsif q.input_type == 'string'
-            = text_field_tag field, selected_answers.first.try(:message)
-          - elsif q.input_type == 'date'
-            =# select_date nil, field, order: [:month, :day, :year]
-            =# date_select (Date.today - 20.years), field, order: [:month, :day, :year]
+        / Most inputs just take a single answer
+        - if q.input_type == 'radio' 
+          - q.options.each do |opt|
+            %label.radio
+              = opt.title
+              %input{type: :radio, name: field, value: opt.id, checked: selected_option_ids.first == opt.id}
+              =# radio_button_tag "answers[#{a.id}][]", opt.id, selected_option_ids.first
+        - else
+          .compact-input
+            - if q.input_type == 'select' 
+              = select_tag "answers[#{a.id}][]", 
+                options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first), prompt: 'Choose an option'
+            - elsif q.input_type == 'string'
+              = text_field_tag field, selected_answers.first.try(:message)
+            - elsif q.input_type == 'date'
+              =# select_date nil, field, order: [:month, :day, :year]
+              =# date_select (Date.today - 20.years), field, order: [:month, :day, :year]
 
-            - date = selected_answers.first.try(:message).blank? ? nil : selected_answers.first.message.to_date
+              - date = selected_answers.first.try(:message).blank? ? nil : selected_answers.first.message.to_date
 
-            .date-fields
-              = select_month date, {prompt: date.blank?}, name: "#{field}[month]", class: 'select-month'
-              = select_day   date, {prompt: date.blank?}, name: "#{field}[day]", class: 'select-day'
-              = select_year  date, 
-                {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year}, 
-                name: "#{field}[year]", class: 'select-year'
+              .date-fields
+                = select_month date, {prompt: date.blank?}, name: "#{field}[month]", class: 'select-month'
+                = select_day   date, {prompt: date.blank?}, name: "#{field}[day]", class: 'select-day'
+                = select_year  date, 
+                  {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year}, 
+                  name: "#{field}[year]", class: 'select-year'
 
   .form-actions
     - label = local_assigns.has_key?(:submit_label) ? submit_label : 'Save'
