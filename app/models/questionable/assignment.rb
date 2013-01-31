@@ -19,15 +19,7 @@ module Questionable
     end
 
     def answers_for_user(user)
-      if self.answers.where(user_id: user.id).any?
-        self.answers.where(user_id: user.id)
-      else
-        if self.question.accepts_multiple_answers?
-          self.question.options.map { |o| Answer.new(assignment_id: self.id, option_id: o.id, user_id: user.id) }
-        else
-          [ self.answers.build(user_id: user.id) ]
-        end
-      end
+      self.answers.where(user_id: user.id)
     end
 
     # for ActiveAdmin

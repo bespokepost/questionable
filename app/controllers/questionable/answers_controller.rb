@@ -47,7 +47,13 @@ module Questionable
             assignment.answers.create(user_id: current_user.id, message: message)
           elsif assignment.question.input_type == 'date'
             date = answers.first
-            assignment.answers.create(user_id: current_user.id, message: "#{date[:year]}-#{date[:month]}-#{date[:day]}")
+            if date[:year].present? or date[:month].present? or date[:day].present?
+              if date[:year].present? and date[:month].present? and date[:day].present?
+                assignment.answers.create(user_id: current_user.id, message: "#{date[:year]}-#{date[:month]}-#{date[:day]}")
+              else
+                flash[:warn] = 'Could not save date. You did not select all three fields.'
+              end
+            end
           else
             option_ids = answers
             option_ids.each do |oid|
