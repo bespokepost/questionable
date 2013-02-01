@@ -30,7 +30,7 @@ Optionally add the following to app/assets/stylesheet/application.css:
 === Create some questions
 
 Create one or more Questions. Supported input_types include select, multiselect,
-radio, checkboxes, and string.
+radio, checkboxes, date, and string.
 
   # input_type may be select, multiselect, radio, checkboxes, or string.
   q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important')
