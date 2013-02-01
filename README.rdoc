@@ -39,7 +39,7 @@ Add Options, unless input_type is 'string'
 
   q.options.create(title: 'Red',   position: 1)
   q.options.create(title: 'Green', position: 2)
-  q.options.create(title: 'Blue',  position: 2)
+  q.options.create(title: 'Blue',  position: 3)
 
 Questions must be assigned a 'subject' before they are used. 
 They subject can be either an object, via a polymorphic association, 
