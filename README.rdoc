@@ -21,6 +21,10 @@ Then run:
   rake questionable:install:migrations
   rake db:migrate
 
+Add Questionable to your config/routes.rb:
+
+  mount Questionable::Engine, :at => 'questions'
+
 Optionally add the following to app/assets/stylesheet/application.css:
 
  *= require questionable
