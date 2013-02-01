@@ -12,7 +12,7 @@ module Questionable
         assignment: assignment,
         user: current_user, 
         option_id: params[:answer][:option_id],
-        message:   params[:answer][:message]
+        message:   (params[:answer][:message] || '')[0..255]
       }, without_protection: true)
 
       if a.save
@@ -43,8 +43,8 @@ module Questionable
           assignment.answers.where(user_id: current_user.id).delete_all
 
           if assignment.question.input_type == 'string'
-            message = answers.first
-            assignment.answers.create(user_id: current_user.id, message: message)
+            message = answers.first || ''
+            assignment.answers.create(user_id: current_user.id, message: message[0..255])
           elsif assignment.question.input_type == 'date'
             date = answers.first
             if date[:year].present? or date[:month].present? or date[:day].present?
