@@ -19,11 +19,11 @@ module Questionable
     end
 
     def self.with_subject(subject)
-      Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject => subject }).order('questionable_assignments.position')
-    end
-
-    def self.with_subject_type(type)
-      Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => type }).order('questionable_assignments.position')
+      if subject.kind_of?(Symbol) or subject.kind_of?(String)
+        Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => subject }).order('questionable_assignments.position')
+      else
+        Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => subject.class.to_s, :subject_id => subject.id }).order('questionable_assignments.position')
+      end
     end
   end
 end
