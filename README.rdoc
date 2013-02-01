@@ -58,12 +58,12 @@ or
 
 Here's we fetch question-assignments for a particular symbol:
 
-  @assignments = Questionable::Assignment.with_subject(current_user, :preferences)
+  @assignments = Questionable::Assignment.with_subject(:preferences)
 
 and here, for a product object:
 
   @product = Product.find(params[:id])
-  @assignments = Questionable::Assignment.with_subject(current_user, @product)
+  @assignments = Questionable::Assignment.with_subject(@product)
 
 ===  In your view 
 
