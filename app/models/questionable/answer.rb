@@ -12,7 +12,7 @@ module Questionable
       if subject.kind_of?(Symbol) or subject.kind_of?(String)
         assignments = Questionable::Assignment.where(:subject_type => subject)
       else
-        assignments = Questionable::Assignment.where(:subject => subject)
+        assignments = Questionable::Assignment.where(:subject_type => subject.class.to_s, :subject_id => subject.id)
       end
 
       assignments = assignments.order(:position)
