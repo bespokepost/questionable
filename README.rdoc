@@ -13,6 +13,10 @@ the questions and recording your users' answers.
 
 Add Questionable to your Gemfile:
 
+  gem 'questionable_surveys'
+
+or for the latest:
+
   gem 'questionable_surveys', :git => 'git://github.com/bespokepost/questionable.git'
 
 Then run:
