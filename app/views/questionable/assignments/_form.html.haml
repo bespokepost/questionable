@@ -1,5 +1,5 @@
 
-= form_tag questionable.answers_create_multiple_path, method: :post, class: 'questions-form' do
+= form_tag questionable.answers_path, method: :post, class: 'questions-form' do
   - assignments.each do |a|
     .question-block{:id => "qa_#{a.id}", class: "question-#{a.question.id}"}
       - q = a.question
