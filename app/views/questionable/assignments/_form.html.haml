@@ -43,7 +43,7 @@
               =# select_date nil, field, order: [:month, :day, :year]
               =# date_select (Date.today - 20.years), field, order: [:month, :day, :year]
 
-              - date = selected_answers.first.try(:message).blank? ? nil : selected_answers.first.message.to_date
+              - date = selected_answers.first.try(:date_answer)
 
               .date-fields
                 = select_month date, {prompt: date.blank?}, name: "#{field}[month]", class: 'select-month'
