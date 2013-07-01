@@ -1,9 +1,9 @@
 module Questionable
   class Question < ActiveRecord::Base
-    has_many :options, :order => 'questionable_options.position ASC'
+    has_many :options, -> { order(:position) } #l'questionable_options.position ASC') }
     has_many :assignments
-    has_many :subjects, :through => :assignments
-    has_many :answers, :through => :assignments
+    has_many :subjects, through: :assignments
+    has_many :answers,  through: :assignments
 
     validates_presence_of :title
 
