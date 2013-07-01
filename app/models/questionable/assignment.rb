@@ -1,7 +1,5 @@
 module Questionable
   class Assignment < ActiveRecord::Base
-    attr_accessible :question_id, :subject, :subject_id, :subject_type, :position
-
     belongs_to :question
     belongs_to :subject, :polymorphic => true
 

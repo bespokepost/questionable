@@ -5,8 +5,6 @@ module Questionable
     has_many :subjects, :through => :assignments
     has_many :answers, :through => :assignments
 
-    attr_accessible :title, :input_type, :note, :category
-
     validates_presence_of :title
 
     def accepts_multiple_answers?
