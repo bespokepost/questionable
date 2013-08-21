@@ -11,13 +11,17 @@ the questions and recording your users' answers.
 
 == Installation
 
-Add Questionable to your Gemfile:
+For Rails 4:
 
-  gem 'questionable_surveys'
+  gem 'questionable_surveys', '>= 0.3.0'
 
-or for the latest:
+For Rails 3:
 
-  gem 'questionable_surveys', :git => 'git://github.com/bespokepost/questionable.git'
+  gem 'questionable_surveys', '~> 0.2.3'
+
+Or get the latest:
+
+  gem 'questionable_surveys', github: 'bespokepost/questionable'
 
 Then run:
 
