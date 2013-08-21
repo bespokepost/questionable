@@ -20,7 +20,7 @@ GIT
 PATH
   remote: .
   specs:
-    questionable_surveys (0.2.3)
+    questionable_surveys (0.3.0)
       formtastic
       haml
       rails (~> 4.0)
