@@ -10,13 +10,11 @@ gem "jquery-rails"
 
 # devise and activeadmin are used by the dummy application
 gem 'devise'
-gem 'activeadmin'
-gem "meta_search", '>= 1.1.0.pre'  # for activeadmin
+gem 'activeadmin',         github: 'gregbell/active_admin', branch: 'rails4'
+#gem "meta_search", '>= 1.1.0.pre'  # for activeadmin
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  #gem 'coffee-rails', '~> 3.2.1'
-end
+#gem 'sass-rails',   '> 4.0.0'
+#gem 'coffee-rails', '~> 3.2.1'
 
 group :development, :tests do
   gem 'autotest-rails'
