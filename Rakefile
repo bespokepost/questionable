@@ -12,6 +12,16 @@ rescue LoadError
   RDoc::Task = Rake::RDocTask
 end
 
+begin  
+  require 'jeweler'  
+  Jeweler::Tasks.new do |gemspec|  
+    # Attributes omitted.  
+  end  
+  Jeweler::GemcutterTasks.new  
+rescue LoadError  
+  puts "Jeweler not available. Install it with: gem install jeweler"
+end  
+
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Questionable'
