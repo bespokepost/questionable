@@ -3,6 +3,13 @@ if defined?(ActiveAdmin)
   ActiveAdmin.register Questionable::Question, :as => 'Questions' do
     menu :label => 'Questions', :parent => 'Questionable'
 
+    filter :category
+    filter :title
+    filter :note
+    filter :input_type
+    filter :created_at
+    filter :updated_at
+
     form do |f|
       f.inputs do
         f.input :title
