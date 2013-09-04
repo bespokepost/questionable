@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Questionable::VERSION
   s.authors     = ["Nick Urban"]
   s.email       = ["nick@nickurban.com"]
+  s.license     = 'MIT'
   s.homepage    = "https://github.com/bespokepost/questionable"
   s.summary     = "Rails engine that programatically generates surveys."
   s.description = "Makes it easy to add and edit forms programatically, " +
