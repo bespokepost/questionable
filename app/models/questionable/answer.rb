@@ -3,7 +3,7 @@ module Questionable
     belongs_to :user
     belongs_to :assignment
     belongs_to :option
-    has_one :question, :through => :assignment
+    has_one :question, through: :assignment
 
     def date_answer
       return nil if message.nil?

@@ -1,9 +1,9 @@
 module Questionable
   class Question < ActiveRecord::Base
-    has_many :options, :order => 'questionable_options.position ASC'
+    has_many :options
     has_many :assignments
-    has_many :subjects, :through => :assignments
-    has_many :answers, :through => :assignments
+    has_many :subjects, through: :assignments
+    has_many :answers, through: :assignments
 
     validates_presence_of :title
 
@@ -18,10 +18,18 @@ module Questionable
 
     def self.with_subject(subject)
       if subject.kind_of?(Symbol) or subject.kind_of?(String)
-        Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => subject }).order('questionable_assignments.position')
+        assignments = { subject_type: subject }
       else
-        Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => subject.class.to_s, :subject_id => subject.id }).order('questionable_assignments.position')
+        assignments = { subject_type: subject.class.to_s, subject_id: subject.id }
       end
+
+      join_query = 'INNER JOIN questionable_assignments '
+      join_query += 'ON questionable_assignments.quest)ion_id = questionable_questions.id'
+
+      query = Questionable::Question.joins(join_query)
+      query = query.where(questionable_assignments: assignements)
+      query = query.order('questionable_assignments.position')
+      query
     end
   end
 end
