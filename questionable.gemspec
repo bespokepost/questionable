@@ -7,17 +7,17 @@ require "questionable/version"
 Gem::Specification.new do |s|
   s.name        = "questionable_surveys"
   s.version     = Questionable::VERSION
-  s.authors     = ["Nick Urban"]
-  s.email       = ["nick@nickurban.com"]
+  s.authors     = ["Nick Urban, Dorian Marié"]
+  s.email       = ["nick@nickurban.com, dorian@bespokepost.com"]
   s.license     = 'MIT'
   s.homepage    = "https://github.com/bespokepost/questionable"
   s.summary     = "Rails engine that programatically generates surveys."
   s.description = "Makes it easy to add and edit forms programatically, " +
-                  "specifying select, radio, checkbox, or string input, " + 
-                  "and recordings users' answers. " + 
-                  "Questions can be associated with specific objects or with string labels. " +
-                  "A form template and controller are including for displaying questions and recording answers, " +
-                  "and ActiveAdmin is supported for editing the questions and options on the back-end."
+    "specifying select, radio, checkbox, or string input, " +
+    "and recordings users' answers. " +
+    "Questions can be associated with specific objects or with string labels. " +
+    "A form template and controller are including for displaying questions and recording answers, " +
+    "and ActiveAdmin is supported for editing the questions and options on the back-end."
 
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
