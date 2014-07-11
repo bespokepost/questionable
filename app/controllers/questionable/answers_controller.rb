@@ -12,6 +12,7 @@ module Questionable
 
       # Answers should always be a hash, and the values should be arrays,
       # even if the question input_type only supports a single answer.
+      # TODO: Refactor that in a model with validations
 
       answers.each do |assignment_id, answers|
         assignment = Assignment.find(assignment_id)
