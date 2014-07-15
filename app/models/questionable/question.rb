@@ -24,10 +24,10 @@ module Questionable
       end
 
       join_query = 'INNER JOIN questionable_assignments '
-      join_query += 'ON questionable_assignments.quest)ion_id = questionable_questions.id'
+      join_query += 'ON questionable_assignments.question_id = questionable_questions.id'
 
       query = Questionable::Question.joins(join_query)
-      query = query.where(questionable_assignments: assignements)
+      query = query.where(questionable_assignments: assignments)
       query = query.order('questionable_assignments.position')
       query
     end
