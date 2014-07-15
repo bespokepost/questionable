@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    questionable_surveys (0.2.3)
+    questionable_surveys (0.2.4)
       formtastic
       haml
       rails (>= 3.2.11)
