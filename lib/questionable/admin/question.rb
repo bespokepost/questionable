@@ -3,12 +3,17 @@ if defined?(ActiveAdmin)
   ActiveAdmin.register Questionable::Question, :as => 'Questions' do
     menu :label => 'Questions', :parent => 'Questionable'
 
+    filter :title
+    filter :note
+    filter :category
+    filter :input_type
+
     form do |f|
       f.inputs do
         f.input :title
         f.input :note
         f.input :category
-        f.input :input_type, :as => :select, 
+        f.input :input_type, :as => :select,
           :collection => %w(select radio checkboxes multiselect date string statement), :include_blank => false
       end
       f.actions
