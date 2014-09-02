@@ -56,7 +56,7 @@ module Questionable
       if request.env["HTTP_REFERER"].present?
         redirect_to :back
       else
-        redirect_to root_url
+        redirect_to main_app.root_url
       end
     end
   end

@@ -11,6 +11,10 @@ module Questionable
       ['checkboxes', 'multiselect'].include?(self.input_type)
     end
 
+    def date_question?
+      input_type == 'date'
+    end
+
     def answers_for_user(user)
       answers = self.answers.where(user_id: user.id)
       answers.any? ? answers : [self.answers.build(user_id: user.id)]
