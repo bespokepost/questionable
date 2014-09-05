@@ -18,24 +18,23 @@
           = hidden_field_tag field
           - q.options.each do |opt|
             %label.checkbox
-              = opt.title
               = check_box_tag field, opt.id, selected_option_ids.include?(opt.id)
+              = opt.title
         - elsif q.input_type == 'multiselect'
           = select_tag field,
             options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids), multiple: true
 
       - else
         / Most inputs just take a single answer
-        - if q.input_type == 'radio' 
+        - if q.input_type == 'radio'
           - q.options.each do |opt|
             %label.radio
-              = opt.title
               %input{type: :radio, name: field, value: opt.id, checked: selected_option_ids.first == opt.id}
-              =# radio_button_tag "answers[#{a.id}][]", opt.id, selected_option_ids.first
+              = opt.title
         - else
           .compact-input
-            - if q.input_type == 'select' 
-              = select_tag "answers[#{a.id}][]", 
+            - if q.input_type == 'select'
+              = select_tag "answers[#{a.id}][]",
                 options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first), prompt: 'Choose an option'
             - elsif q.input_type == 'string'
               = text_field_tag field, selected_answers.first.try(:message)
@@ -48,8 +47,8 @@
               .date-fields
                 = select_month date, {prompt: date.blank?}, name: "#{field}[month]", class: 'select-month'
                 = select_day   date, {prompt: date.blank?}, name: "#{field}[day]", class: 'select-day'
-                = select_year  date, 
-                  {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year}, 
+                = select_year  date,
+                  {prompt: date.blank?, start_year: (Date.today-13.years).year, end_year: (Date.today-70.years).year},
                   name: "#{field}[year]", class: 'select-year'
 
   .form-actions
