@@ -13,7 +13,7 @@ if defined?(ActiveAdmin)
       column(:assignment)
       column(:option)
       column(:message)
-      default_actions
+      actions
     end
   end
 end
