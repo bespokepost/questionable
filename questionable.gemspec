@@ -7,7 +7,7 @@ require "questionable/version"
 Gem::Specification.new do |s|
   s.name        = "questionable_surveys"
   s.version     = Questionable::VERSION
-  s.authors     = ["Nick Urban, Dorian Marie, Jared Hales"]
+  s.authors     = ["Nick Urban, Dorian Marié, Jared Hales"]
   s.email       = ["nick@nickurban.com, dorian@bespokepost.com, jared@bespokepost.com"]
   s.license     = 'MIT'
   s.homepage    = "https://github.com/bespokepost/questionable"
