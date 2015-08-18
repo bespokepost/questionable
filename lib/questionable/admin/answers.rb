@@ -9,11 +9,11 @@ if defined?(ActiveAdmin)
 
     index do
       column(:id) { |a| link_to a.id, admin_answer_path(a) }
-      column(:user) 
+      column(:user)
       column(:assignment)
       column(:option)
       column(:message)
-      default_actions
+      actions
     end
   end
 end

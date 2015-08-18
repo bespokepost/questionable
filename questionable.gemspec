@@ -7,8 +7,8 @@ require "questionable/version"
 Gem::Specification.new do |s|
   s.name        = "questionable_surveys"
   s.version     = Questionable::VERSION
-  s.authors     = ["Nick Urban, Dorian Marié"]
-  s.email       = ["nick@nickurban.com, dorian@bespokepost.com"]
+  s.authors     = ["Nick Urban, Dorian Marié, Jared Hales"]
+  s.email       = ["nick@nickurban.com, dorian@bespokepost.com, jared@bespokepost.com"]
   s.license     = 'MIT'
   s.homepage    = "https://github.com/bespokepost/questionable"
   s.summary     = "Rails engine that programatically generates surveys."
@@ -22,10 +22,11 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "rails", ">= 3.2.11"
+  s.add_dependency "rails", ">= 3.2.22"
   s.add_dependency 'haml'
   s.add_dependency 'formtastic'
   s.add_dependency 'stringex'
+  s.add_dependency 'activeadmin', '~> 1.0.0.pre1'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
