@@ -15,5 +15,15 @@ if defined?(ActiveAdmin)
       column(:message)
       actions
     end
+
+    form as: :questionable_answer do |f|
+      f.inputs do
+        f.input :user
+        f.input :assignment
+        f.input :option
+        f.input :message
+      end
+      f.actions
+    end
   end
 end

@@ -8,7 +8,7 @@ if defined?(ActiveAdmin)
     filter :category
     filter :input_type
 
-    form do |f|
+    form as: :questionable_question do |f|
       f.inputs do
         f.input :title
         f.input :note
