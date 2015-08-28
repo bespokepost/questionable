@@ -2,6 +2,19 @@ if defined?(ActiveAdmin)
   ActiveAdmin.register Questionable::Assignment, :as => 'Assignments', :sort_order => 'source_type, source_id, position' do
     menu :label => 'Assignments', :parent => 'Questionable'
 
+    controller do
+      def scoped_collection
+        super.includes :question
+      end
+    end
+
+    filter :subject_type
+    filter :question
+    filter :answered_options
+    filter :position
+    filter :created_at
+    filter :updated_at
+
     index do 
       column(:id) { |a| link_to a.id, admin_assignment_path(a.id) }
       column(:subject) { |a| a.subject_id ? a.subject : a.subject_type }
