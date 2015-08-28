@@ -11,7 +11,7 @@ if defined?(ActiveAdmin)
       column :updated_at
     end
 
-    form do |f|
+    form as: :questionable_assignment do |f|
       f.inputs do
         f.input :question
         f.input :subject_type
