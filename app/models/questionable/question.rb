@@ -11,8 +11,12 @@ module Questionable
       ['checkboxes', 'multiselect'].include?(self.input_type)
     end
 
-    def date_question?
-      input_type == 'date'
+    %w(checkboxes multiselect radio string select date).each do |type|
+      class_eval <<-EOV, __FILE__, __LINE__
+        def #{type}?
+          input_type == "#{type}"
+        end
+      EOV
     end
 
     def answers_for_user(user)

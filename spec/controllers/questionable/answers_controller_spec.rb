@@ -60,26 +60,64 @@ module Questionable
         Answer.count.should == 0  # sanity check
         expect {
           post :create, answers: { assignment1.id => [ '' ] }, use_route: :answers
-        }.not_to change { Answer.count }
+        }.not_to change(Answer, :count)
       end
 
       context "when we post a valid date" do
+        let(:valid_date){ { year: '2012', month: '08', day: '12' } }
+
         it "should save the date" do
-          post :create, answers: { date_assignment.id => [ { year: '2012', month: '08', day: '12' } ] }, use_route: :answers
-          response.should redirect_to '/foo'
+          expect {
+            post :create, answers: { date_assignment.id => [ valid_date ] }, use_route: :answers
+          }.to change(Answer, :count).by(1)
+
           Answer.first.message.should == '2012-08-12'
           Answer.first.date_answer.should == Date.parse('2012-08-12')
+        end
+
+        context "when responding to html" do
+          it "should redirect" do
+            post :create, answers: { date_assignment.id => [ valid_date ] }, use_route: :answers
+            response.should redirect_to '/foo'
+          end
+        end
+
+        context "when responding to json" do
+          it "should return json" do
+            post :create, answers: { date_assignment.id => [ valid_date ] }, use_route: :answers, format: :json
+            response.status.should eq 200
+            warning = JSON.parse(response.body)["message"]
+            warning.should be_nil
+          end
         end
       end
 
       context "when we post an invalid date" do
-        it "should give a warning" do
-          post :create, answers: { date_assignment.id => [ { year: '2012', month: '28', day: '12' } ] }, use_route: :answers
-          response.should redirect_to '/foo'
-          flash[:warn].should == 'Could not save date. Invalid date.'
+        let(:invalid_date){ { year: '2012', month: '28', day: '12' } }
+
+        it "should not save the date" do
+          expect {
+            post :create, answers: { date_assignment.id => [ invalid_date ] }, use_route: :answers
+          }.not_to change(Answer, :count)
+        end
+
+        context "when responding to html" do
+          it "should give a warning" do
+            post :create, answers: { date_assignment.id => [ invalid_date ] }, use_route: :answers
+            response.should redirect_to '/foo'
+            flash[:warn].should == 'Could not save date. You did not select all three fields or you entered an invalid date.'
+          end
+        end
+
+        context "when responding to json" do
+          it "should give a warning" do
+            post :create, answers: { date_assignment.id => [ invalid_date ] }, use_route: :answers, format: :json
+            response.status.should eq 200
+            warning = JSON.parse(response.body)["message"]
+            warning.should == 'Could not save date. You did not select all three fields or you entered an invalid date.'
+          end
         end
       end
     end
-
   end
 end

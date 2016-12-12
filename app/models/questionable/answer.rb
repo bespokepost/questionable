@@ -6,25 +6,20 @@ module Questionable
     has_one :question, through: :assignment
 
     def date_answer
-      return nil if message.nil?
-
-      self.message.to_date
+      message.try(:to_date)
     rescue ArgumentError
-      nil
     end
 
     def answer_summary
-      if self.option && self.message
-        "#{self.option.title} (#{self.message})"
-      elsif self.message && self.question.date_question?
-        self.date_answer
-      elsif self.option
-        self.option.title
+      if option && message
+        "#{option.title} (#{message})"
+      elsif message && question.date?
+        date_answer
+      elsif option
+        option.title
       else
-        self.message
+        message
       end
     end
-
-
   end
 end
