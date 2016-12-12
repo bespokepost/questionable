@@ -22,6 +22,7 @@ group :development, :tests do
   gem 'autotest-rails'
   gem 'autotest-fsevent'  # Make autotest faster on OS X
   gem 'autotest-notification'  # show popup notices
+  gem 'test-unit'
 end
 
 
@@ -32,4 +33,3 @@ end
 
 # To use debugger
 # gem 'debugger'
-
