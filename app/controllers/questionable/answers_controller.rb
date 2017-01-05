@@ -2,6 +2,8 @@ require_dependency "questionable/application_controller"
 
 module Questionable
   class AnswersController < ApplicationController
+    skip_before_action :require_full_user!
+
     def create
       answers = params[:answers]
 
