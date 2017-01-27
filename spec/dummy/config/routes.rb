@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  mount Questionable::Engine => "/questionable"
+  mount Questionable::Engine => '/questionable'
 
   root to: 'users#index'
 

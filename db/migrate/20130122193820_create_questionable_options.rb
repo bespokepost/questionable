@@ -8,6 +8,7 @@ class CreateQuestionableOptions < ActiveRecord::Migration
 
       t.timestamps
     end
+    
     add_index :questionable_options, [:question_id, :position]
   end
 end

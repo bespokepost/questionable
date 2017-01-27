@@ -2,13 +2,11 @@
 <html>
 <head>
   <title>Questionable</title>
-  <%= stylesheet_link_tag    "questionable/application", :media => "all" %>
-  <%= javascript_include_tag "questionable/application" %>
+  <%= stylesheet_link_tag    'questionable/application', media: 'all' %>
+  <%= javascript_include_tag 'questionable/application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= yield %>
 </body>
 </html>

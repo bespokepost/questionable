@@ -64,7 +64,7 @@ or
 
 ===  In your controller
 
-Here's we fetch question-assignments for a particular symbol:
+Here's how we fetch question-assignments for a particular symbol:
 
   @assignments = Questionable::Assignment.with_subject(:preferences)
 
@@ -94,4 +94,3 @@ Written by {Nick Urban}[https://github.com/nickurban/] at {Bespoke Post}[https:/
 == Licence
 
 This project uses the MIT-LICENSE.
-

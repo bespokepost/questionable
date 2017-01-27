@@ -1,7 +1,7 @@
 if defined?(ActiveAdmin)
   # NOTE: This ":as" option determines the names of the routes generated
-  ActiveAdmin.register Questionable::Option, :as => 'Options' do
-    menu :label => 'Options', :parent => 'Questionable'
+  ActiveAdmin.register Questionable::Option, as: 'Options' do
+    menu label: 'Options', parent: 'Questionable'
 
     controller do
       def create
@@ -24,6 +24,7 @@ if defined?(ActiveAdmin)
         f.input :note
         f.input :position
       end
+      
       f.actions
     end
   end

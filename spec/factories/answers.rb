@@ -1,6 +1,6 @@
 
 FactoryGirl.define do
-  factory :answer, :class => Questionable::Answer do
+  factory :answer, class: Questionable::Answer do
     user nil
     assignment nil
     option nil

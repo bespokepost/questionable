@@ -1,7 +1,7 @@
 if defined?(ActiveAdmin)
   # NOTE: This ":as" option determines the names of the routes generated
-  ActiveAdmin.register Questionable::Question, :as => 'Questions' do
-    menu :label => 'Questions', :parent => 'Questionable'
+  ActiveAdmin.register Questionable::Question, as: 'Questions' do
+    menu label: 'Questions', parent: 'Questionable'
 
     filter :title
     filter :note
@@ -13,9 +13,10 @@ if defined?(ActiveAdmin)
         f.input :title
         f.input :note
         f.input :category
-        f.input :input_type, :as => :select,
-          :collection => %w(select radio checkboxes multiselect date string statement), :include_blank => false
+        f.input :input_type, as: :select,
+          collection: %w(select radio checkboxes multiselect date string statement), include_blank: false
       end
+      
       f.actions
     end
 
@@ -36,7 +37,7 @@ if defined?(ActiveAdmin)
           column :position
           column(:actions) do |o|
             link_to('Edit', edit_admin_option_path(o)) + ' | ' +
-            link_to('Delete', admin_option_path(o), :method => :delete)
+            link_to('Delete', admin_option_path(o), method: :delete)
           end
         end
 
@@ -45,7 +46,6 @@ if defined?(ActiveAdmin)
       panel 'Add Option', class: 'add-option' do
         render partial: 'admin/options/form', locals: { question: q }
       end
-
     end
   end
 end
