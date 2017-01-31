@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124193419) do
+ActiveRecord::Schema.define(:version => 20170127203606) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -53,10 +53,12 @@ ActiveRecord::Schema.define(:version => 20130124193419) do
     t.string   "message"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "question_id"
   end
 
   add_index "questionable_answers", ["assignment_id"], :name => "index_questionable_answers_on_assignment_id"
   add_index "questionable_answers", ["option_id"], :name => "index_questionable_answers_on_option_id"
+  add_index "questionable_answers", ["question_id"], :name => "index_questionable_answers_on_question_id"
   add_index "questionable_answers", ["user_id"], :name => "index_questionable_answers_on_user_id"
 
   create_table "questionable_assignments", :force => true do |t|

@@ -1,8 +1,10 @@
 module Questionable
   class Answer < ActiveRecord::Base
     belongs_to :user
-    belongs_to :assignment
     belongs_to :option
+    belongs_to :parent_question, class_name: 'Questionable::Question', foreign_key: 'question_id'
+
+    belongs_to :assignment
     has_one :question, through: :assignment
 
     def date_answer
