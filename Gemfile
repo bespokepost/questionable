@@ -21,5 +21,4 @@ end
 
 group :development, :tests do
   gem 'test-unit'
-  gem 'pry'
 end
