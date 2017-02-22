@@ -1,6 +1,6 @@
 if defined?(ActiveAdmin)
-  ActiveAdmin.register Questionable::Assignment, :as => 'Assignments', :sort_order => 'source_type, source_id, position' do
-    menu :label => 'Assignments', :parent => 'Questionable'
+  ActiveAdmin.register Questionable::Assignment, as: 'Assignments', sort_order: 'source_type, source_id, position' do
+    menu label: 'Assignments', parent: 'Questionable'
 
     controller do
       def scoped_collection
@@ -28,9 +28,10 @@ if defined?(ActiveAdmin)
       f.inputs do
         f.input :question
         f.input :subject_type
-        f.input :subject_id, :as => :number
+        f.input :subject_id, as: :number
         f.input :position
       end
+      
       f.actions
     end
   end

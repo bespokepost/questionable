@@ -26,5 +26,5 @@ module Questionable
     def display_name
       "#{self.subject_type}#{self.subject_id}: #{self.question.title}"
     end
-  end # End Assignment
+  end
 end

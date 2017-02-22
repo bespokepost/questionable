@@ -1,8 +1,8 @@
 if defined?(ActiveAdmin)
-  ActiveAdmin.register Questionable::Answer, :as => 'Answers' do
-    menu :label => 'Answers', :parent => 'Questionable'
+  ActiveAdmin.register Questionable::Answer, as: 'Answers' do
+    menu label: 'Answers', parent: 'Questionable'
 
-    filter :user_email, :as => :string
+    filter :user_email, as: :string
     filter :assignment_sources
     filter :created_at
     filter :updated_at
@@ -23,6 +23,7 @@ if defined?(ActiveAdmin)
         f.input :option
         f.input :message
       end
+      
       f.actions
     end
   end
