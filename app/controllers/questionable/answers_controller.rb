@@ -9,16 +9,16 @@ module Questionable
 
       # Answers should always be a hash, and the values should be arrays,
       # even if the question input_type only supports a single answer.
-      answers.each do |assignment_id, answers|
+      answers.each do |assignment_id, assignment_answers|
         assignment = Assignment.find(assignment_id)
         assignment.answers.where(user_id: current_user.id).delete_all
         question = assignment.question
 
         if question.string?
-          message = answers.first || ''
+          message = assignment_answers.first || ''
           assignment.answers.create(user_id: current_user.id, message: message[0..255])
         elsif question.date?
-          date_answer = Questionable::DateAnswer.new(answers.first)
+          date_answer = Questionable::DateAnswer.new(assignment_answers.first)
           next if date_answer.empty?
 
           if date_answer.valid?
@@ -31,12 +31,8 @@ module Questionable
             flash[:warn] = 'Could not save date. You did not select all three fields or you entered an invalid date.'
           end
         else
-          option_ids = answers
-
-          option_ids.each do |oid|
-            unless oid.blank?
-              assignment.answers.create(user_id: current_user.id, option_id: oid)
-            end
+          assignment_answers.reject(&:blank?).each do |oid|
+            assignment.answers.create(user_id: current_user.id, option_id: oid)
           end
         end
       end
