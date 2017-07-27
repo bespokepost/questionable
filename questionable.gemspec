@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     'A form template and controller are including for displaying questions and recording answers, ' +
     'and ActiveAdmin is supported for editing the questions and options on the back-end.'
 
+  s.required_ruby_version = '>= 2.2.2'
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
