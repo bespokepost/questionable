@@ -24,40 +24,40 @@ module Questionable
     describe 'POST #create' do
       it 'should create answers for each question answered' do
         post :create, params: { answers: { assignment1.id => [ q1_option1.id ], assignment2.id => [ q2_option2.id ]  }, use_route: :answers }
-        assignment1.answered_options.should == [q1_option1]
-        assignment2.answered_options.should == [q2_option2]
+        expect(assignment1.answered_options).to eq [q1_option1]
+        expect(assignment2.answered_options).to eq [q2_option2]
       end
 
       context 'when no referrer is set' do
         before { request.env['HTTP_REFERER'] = nil }
         it 'should redirect to root' do
           post :create, params: { answers: { subject_assignment.id => [q1_option2.id] }, use_route: :answers }
-          response.should redirect_to '/'
+          expect(response).to redirect_to '/'
         end
       end
 
       context 'when the assignment is to a subject' do
         it 'should create an assignment' do
           post :create, params: { answers: { subject_assignment.id => [q1_option2.id] }, use_route: :answers }
-          subject_assignment.answered_options.should == [q1_option2]
+          expect(subject_assignment.answered_options).to eq [q1_option2]
         end
       end
 
       it 'should create multiple answers to a multi-answer question' do
         post :create, params: { answers: { assignment1.id => [ q1_option1.id, q1_option2.id ] }, use_route: :answers }
-        assignment1.answered_options.should include(q1_option1)
-        assignment1.answered_options.should include(q1_option2)
+        expect(assignment1.answered_options).to include(q1_option1)
+        expect(assignment1.answered_options).to include(q1_option2)
       end
 
       it 'should remove old answers for answered questions' do
         assignment1.answers << create(:answer, user_id: user.id, option_id: q1_option1.id)
 
         post :create, params: { answers: { assignment1.id => [ q1_option2.id ] }, use_route: :answers }
-        assignment1.answered_options.should == [q1_option2]
+        expect(assignment1.answered_options).to eq [q1_option2]
       end
 
       it 'should not create an answer with a blank select' do
-        Answer.count.should == 0  # sanity check
+        expect(Answer.count).to eq 0  # sanity check
         expect {
           post :create, params: { answers: { assignment1.id => [ '' ] }, use_route: :answers }
         }.not_to change(Answer, :count)
@@ -71,23 +71,23 @@ module Questionable
             post :create, params: { answers: { date_assignment.id => [ valid_date ] }, use_route: :answers }
           }.to change(Answer, :count).by(1)
 
-          Answer.first.message.should == '2012-08-12'
-          Answer.first.date_answer.should == Date.parse('2012-08-12')
+          expect(Answer.first.message).to eq '2012-08-12'
+          expect(Answer.first.date_answer).to eq Date.parse('2012-08-12')
         end
 
         context 'when responding to html' do
           it 'should redirect' do
             post :create, params: { answers: { date_assignment.id => [ valid_date ] }, use_route: :answers }
-            response.should redirect_to '/foo'
+            expect(response).to redirect_to '/foo'
           end
         end
 
         context 'when responding to json' do
           it 'should return json' do
             post :create, params: { answers: { date_assignment.id => [ valid_date ] }, use_route: :answers, format: :json }
-            response.status.should eq 200
+            expect(response.status).to eq 200
             warning = JSON.parse(response.body)['message']
-            warning.should be_nil
+            expect(warning).to be_nil
           end
         end
       end
@@ -104,17 +104,17 @@ module Questionable
         context 'when responding to html' do
           it 'should give a warning' do
             post :create, params: { answers: { date_assignment.id => [ invalid_date ] }, use_route: :answers }
-            response.should redirect_to '/foo'
-            flash[:warn].should == 'Could not save date. You did not select all three fields or you entered an invalid date.'
+            expect(response).to redirect_to '/foo'
+            expect(flash[:warn]).to eq 'Could not save date. You did not select all three fields or you entered an invalid date.'
           end
         end
 
         context 'when responding to json' do
           it 'should give a warning' do
             post :create, params: { answers: { date_assignment.id => [ invalid_date ] }, use_route: :answers, format: :json }
-            response.status.should eq 200
+            expect(response.status).to eq 200
             warning = JSON.parse(response.body)['message']
-            warning.should == 'Could not save date. You did not select all three fields or you entered an invalid date.'
+            expect(warning).to eq 'Could not save date. You did not select all three fields or you entered an invalid date.'
           end
         end
       end
