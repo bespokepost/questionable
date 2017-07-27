@@ -7,7 +7,7 @@ module Questionable
     has_many :answered_options, through: :answers, source: :option
 
     def self.with_subject(subject)
-      if subject.kind_of?(Symbol) or subject.kind_of?(String)
+      if subject.kind_of?(Symbol) || subject.kind_of?(String)
         assignments = Questionable::Assignment.where(subject_type: subject)
       else
         assignments = Questionable::Assignment.where(
