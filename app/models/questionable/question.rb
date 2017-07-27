@@ -20,24 +20,25 @@ module Questionable
     end
 
     def answers_for_user(user)
-      answers = self.answers.where(user_id: user.id)
-      answers.any? ? answers : [self.answers.build(user_id: user.id)]
+      answers_for_user = answers.where(user_id: user.id)
+      return answers_for_user if answers_for_user.any?
+      [answers.build(user_id: user.id)]
     end
 
     def self.with_subject(subject)
-      if subject.kind_of?(Symbol) or subject.kind_of?(String)
-        assignments = { subject_type: subject }
-      else
-        assignments = { subject_type: subject.class.to_s, subject_id: subject.id }
-      end
+      assignments =
+        if subject.is_a?(Symbol) || subject.is_a?(String)
+          { subject_type: subject }
+        else
+          { subject_type: subject.class.to_s, subject_id: subject.id }
+        end
 
       join_query = 'INNER JOIN questionable_assignments '
       join_query += 'ON questionable_assignments.question_id = questionable_questions.id'
 
-      query = Questionable::Question.joins(join_query)
-      query = query.where(questionable_assignments: assignments)
-      query = query.order('questionable_assignments.position')
-      query
+      Questionable::Question.joins(join_query).
+        where(questionable_assignments: assignments).
+        order('questionable_assignments.position')
     end
   end
 end
