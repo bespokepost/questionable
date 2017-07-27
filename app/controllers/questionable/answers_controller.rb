@@ -5,7 +5,7 @@ module Questionable
     def create
       answers = params[:answers]
 
-      return render_error unless current_user && answers.is_a?(Hash)
+      return render_error unless current_user && answers.present?
 
       # Answers should always be a hash, and the values should be arrays,
       # even if the question input_type only supports a single answer.
