@@ -11,10 +11,9 @@ gem "jquery-rails"
 # devise and activeadmin are used by the dummy application
 gem 'devise'
 gem 'activeadmin'
-gem "meta_search", '>= 1.1.0.pre'  # for activeadmin
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails'
 end
 
 group :development, :tests do
