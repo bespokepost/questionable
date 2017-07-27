@@ -5,10 +5,10 @@ module Questionable
     has_many :subjects, through: :assignments
     has_many :answers, through: :assignments
 
-    validates_presence_of :title
+    validates :title, presence: true
 
     def accepts_multiple_answers?
-      ['checkboxes', 'multiselect'].include?(self.input_type)
+      %w(checkboxes multiselect).include?(input_type)
     end
 
     %w(checkboxes multiselect radio string select date).each do |type|
@@ -33,8 +33,8 @@ module Questionable
           { subject_type: subject.class.to_s, subject_id: subject.id }
         end
 
-      join_query = 'INNER JOIN questionable_assignments '
-      join_query += 'ON questionable_assignments.question_id = questionable_questions.id'
+      join_query = 'INNER JOIN questionable_assignments ' \
+                   'ON questionable_assignments.question_id = questionable_questions.id'
 
       Questionable::Question.joins(join_query).
         where(questionable_assignments: assignments).
