@@ -24,7 +24,7 @@ if defined?(ActiveAdmin)
         f.input :note
         f.input :position
       end
-      
+
       f.actions
     end
   end
