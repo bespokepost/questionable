@@ -1,5 +1,5 @@
 module Questionable
-  class Option < ActiveRecord::Base
+  class Option < ApplicationRecord
     belongs_to :question
 
     default_scope { order('questionable_options.position ASC') }

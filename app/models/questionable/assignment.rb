@@ -1,5 +1,5 @@
 module Questionable
-  class Assignment < ActiveRecord::Base
+  class Assignment < ApplicationRecord
     belongs_to :question
     belongs_to :subject, polymorphic: true
 

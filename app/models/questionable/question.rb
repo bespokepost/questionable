@@ -1,5 +1,5 @@
 module Questionable
-  class Question < ActiveRecord::Base
+  class Question < ApplicationRecord
     has_many :options
     has_many :assignments
     has_many :subjects, through: :assignments
