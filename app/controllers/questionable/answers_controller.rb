@@ -55,11 +55,7 @@ module Questionable
     end
 
     def redirect_to_back
-      if request.env["HTTP_REFERER"].present?
-        redirect_to :back
-      else
-        redirect_to main_app.root_url
-      end
+      redirect_back(fallback_location: main_app.root_url)
     end
   end
 end
