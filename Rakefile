@@ -23,7 +23,7 @@ end
 APP_RAKEFILE = File.expand_path('../spec/dummy/Rakefile', __FILE__)
 load 'rails/tasks/engine.rake'
 
-Dir[File.join(File.dirname(__FILE__), 'tasks/**/*.rake')].each {|f| load f }
+Dir[File.join(File.dirname(__FILE__), 'tasks/**/*.rake')].each { |f| load f }
 
 Bundler::GemHelper.install_tasks
 
@@ -31,5 +31,5 @@ require 'rspec/core'
 require 'rspec/core/rake_task'
 
 desc 'Run all specs in spec directory (excluding plugin specs)'
-RSpec::Core::RakeTask.new(:spec => 'app:db:test:prepare')
-task :default => :spec
+RSpec::Core::RakeTask.new(spec: 'app:db:test:prepare')
+task default: :spec

@@ -1,4 +1,4 @@
-class CreateQuestionableAssignments < ActiveRecord::Migration
+class CreateQuestionableAssignments < ActiveRecord::Migration[5.0]
   def change
     create_table :questionable_assignments do |t|
       t.integer :question_id
@@ -9,6 +9,6 @@ class CreateQuestionableAssignments < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :questionable_assignments, [:subject_type, :subject_id, :position], :name => 'index_questionable_assignments_on_subject_and_position' 
+    add_index :questionable_assignments, [:subject_type, :subject_id, :position], :name => 'index_questionable_assignments_on_subject_and_position'
   end
 end

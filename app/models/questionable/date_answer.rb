@@ -18,15 +18,15 @@ module Questionable
     end
 
     def empty?
-      !(month.present? or day.present? or year.present?)
+      !(month.present? || day.present? || year.present?)
     end
 
-    private 
+    private
 
     def is_date
       to_s.try(:to_date)
     rescue ArgumentError
-      errors.add(:base, 'Date is invalid') 
+      errors.add(:base, 'Date is invalid')
     end
   end
 end

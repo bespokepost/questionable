@@ -23,7 +23,7 @@ if defined?(ActiveAdmin)
         f.input :option
         f.input :message
       end
-      
+
       f.actions
     end
   end

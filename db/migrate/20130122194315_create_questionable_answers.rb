@@ -1,4 +1,4 @@
-class CreateQuestionableAnswers < ActiveRecord::Migration
+class CreateQuestionableAnswers < ActiveRecord::Migration[5.0]
   def change
     create_table :questionable_answers do |t|
       t.integer :user_id
