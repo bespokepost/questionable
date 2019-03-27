@@ -20,5 +20,4 @@ group :development, :test do
   gem 'autotest-notification'  # show popup notices
   gem 'bundler-audit'
   gem 'test-unit'
-  gem 'sqlite3', '~>1.3'
 end

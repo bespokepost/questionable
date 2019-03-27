@@ -61,7 +61,7 @@ jobs:
       - run:
           name: Setup database yml file
           command: |
-            mkdir -p config;
+            mkdir -p spec/dummy/config;
             echo 'test:
               database: spoke_test
               adapter: postgresql
@@ -71,7 +71,7 @@ jobs:
               prepared_statements: false
               username: spoke-dev-pg-user
               host: localhost
-            ' > config/database.yml
+            ' > spec/dummy/config/database.yml
 
       - run:
           name: Setup test reporting
@@ -88,7 +88,7 @@ jobs:
 
   ruby_tests:
     <<: *defaults
-    parallelism: 3
+    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
@@ -102,7 +102,6 @@ jobs:
           name: Creating test DB
           command: |
             bundle exec rake db:create db:schema:load --trace
-            bundle exec rake db_triggers:load
 
       - run:
           name: Run rspec in parallel
