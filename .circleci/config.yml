@@ -8,7 +8,6 @@ defaults: &defaults
   #  # CIRCLE_ARTIFACTS is used by our test scripts
   #  CIRCLE_ARTIFACTS: ~/bespokepost/questionable/test_artifacts
 
-
   docker:
     - image: bespokepost/ruby:2.2.10-node
       auth:

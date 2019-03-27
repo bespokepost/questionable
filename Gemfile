@@ -21,3 +21,7 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'test-unit'
 end
+
+group :test do
+  gem 'pg' # Needed for CircleCI tests
+end
