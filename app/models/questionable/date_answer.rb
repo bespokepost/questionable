@@ -4,7 +4,7 @@ module Questionable
 
     attr_accessor :month, :day, :year
 
-    validates_presence_of :month, :day, :year
+    validates :month, :day, :year, presence: true
     validate :is_date
 
     def initialize(attributes = {})

@@ -19,12 +19,12 @@ module Questionable
     end
 
     def answers_for_user(user)
-      self.answers.where(user_id: user.id)
+      answers.where(user_id: user.id)
     end
 
     # for ActiveAdmin
     def display_name
-      "#{self.subject_type}#{self.subject_id}: #{self.question.title}"
+      "#{subject_type}#{subject_id}: #{question.title}"
     end
   end
 end

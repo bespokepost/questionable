@@ -1,6 +1,6 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
-ruby ">= 2.2"
+ruby '>= 2.2'
 
 # Declare your gem's dependencies in questionable.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -8,15 +8,11 @@ ruby ">= 2.2"
 gemspec
 
 # jquery-rails is used by the dummy application
-gem "jquery-rails"
+gem 'jquery-rails'
 
 # devise and activeadmin are used by the dummy application
 gem 'devise'
 gem 'activeadmin'
-
-group :assets do
-  gem 'sass-rails'
-end
 
 group :development, :tests do
   gem 'autotest-rails'

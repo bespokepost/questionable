@@ -20,9 +20,12 @@ module Questionable
     end
 
     def answers_for_user(user)
-      answers_for_user = answers.where(user_id: user.id)
-      return answers_for_user if answers_for_user.any?
-      [answers.build(user_id: user.id)]
+      existing_answers_for_user = answers.where(user_id: user.id)
+      if existing_answers_for_user.any?
+        existing_answers_for_user.to_a
+      else
+        [answers.build(user_id: user.id)]
+      end
     end
 
     def self.with_subject(subject)

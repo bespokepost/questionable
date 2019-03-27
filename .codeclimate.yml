@@ -2,11 +2,6 @@ prepare:
   fetch:
   - url: "https://raw.githubusercontent.com/bespokepost/code-climate-config/master/config/rubocop.yml"
     path: "config/rubocop.yml"
-  - url: "https://raw.githubusercontent.com/bespokepost/code-climate-config/master/config/coffeelint.json"
-    path: "config/coffeelint.json"
-  - url: "https://raw.githubusercontent.com/bespokepost/code-climate-config/master/config/scss-lint.yml"
-    path: "config/scss-lint.yml"
-
 engines:
   rubocop:
     enabled: true
@@ -23,25 +18,12 @@ engines:
       - javascript
   reek:
     enabled: true
-  coffeelint:
-    enabled: true
-    config: config/coffeelint.json
-  scss-lint:
-    enabled: true
-    config: config/scss-lint.yml
 ratings:
   paths:
   - app/**
   - lib/**
   - "**.rb"
-  - "**.coffee"
 exclude_paths:
 - db/**/*
 - spec/**/*
 - "**/vendor/**/*"
-- public/assets/**/*
-- app/assets/images/**/*
-- app/assets/fonts/**/*
-- lib/tasks/temporary/*
-- css/**/*
-- js/**/*
