@@ -41,7 +41,7 @@ jobs:
       - restore_cache:
           name: Loading bundled gems cache
           keys:
-            - spoke-ruby-2.2.10-bundle-{{ checksum "Gemfile.lock" }}
+            - spoke-ruby-2.2.10-bundle-{{ checksum "Gemfile" }}
             - spoke-ruby-2.2.10-bundle-
 
       - run:
