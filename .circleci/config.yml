@@ -87,7 +87,6 @@ jobs:
 
   ruby_tests:
     <<: *defaults
-    parallelism: 2
     steps:
       - checkout
       - attach_workspace:
@@ -125,18 +124,6 @@ jobs:
       - store_artifacts:
           path: test_artifacts
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - code_climate/coverage
-
-  report_tests_to_codeclimate:
-    <<: *defaults
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/bespokepost/questionable
-
       - run:
           name: Report test results to Code Climate
           command: |
@@ -152,7 +139,3 @@ workflows:
       - ruby_tests:
           requires:
             - setup_dependencies
-
-      - report_tests_to_codeclimate:
-          requires:
-            - ruby_tests
