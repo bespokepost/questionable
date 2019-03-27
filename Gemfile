@@ -24,4 +24,5 @@ end
 
 group :test do
   gem 'pg' # Needed for CircleCI tests
+  gem 'rspec_junit_formatter'
 end

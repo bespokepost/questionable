@@ -103,16 +103,13 @@ jobs:
             bundle exec rake db:create db:schema:load --trace
 
       - run:
-          name: Run rspec in parallel
+          name: Run rspec
           command: |
-            files=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            echo $files
             bundle exec rspec --profile 10 \
                               --tag ~local \
                               --format RspecJunitFormatter \
                               --out test_results/rspec/junit.xml \
-                              --format progress \
-                              $files
+                              --format progress
 
       # Save test results for timing analysis
       - store_test_results:
