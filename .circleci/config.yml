@@ -81,7 +81,7 @@ jobs:
           root: .
           paths:
             - vendor/bundle
-            - config/database.yml
+            - spec/dummy/config/database.yml
             - test_results
             - test_artifacts
             - code_climate
