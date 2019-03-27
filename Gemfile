@@ -23,6 +23,7 @@ group :development, :test do
 end
 
 group :test do
+  # Code coverage, See: https://github.com/colszowka/simplecov/issues/281
   gem 'codeclimate-test-reporter', "~> 1.0.0"
   gem 'pg' # Needed for CircleCI tests
   gem 'rspec_junit_formatter'
