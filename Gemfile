@@ -14,10 +14,11 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'activeadmin'
 
-group :development, :tests do
+group :development, :test do
   gem 'autotest-rails'
   gem 'autotest-fsevent'  # Make autotest faster on OS X
   gem 'autotest-notification'  # show popup notices
   gem 'bundler-audit'
   gem 'test-unit'
+  gem 'sqlite3', '~>1.3'
 end
