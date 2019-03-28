@@ -4,9 +4,9 @@ defaults: &defaults
   working_directory: ~/bespokepost/questionable
   parallelism: 1
   shell: /bin/bash --login
-  #environment:
-  #  # CIRCLE_ARTIFACTS is used by our test scripts
-  #  CIRCLE_ARTIFACTS: ~/bespokepost/questionable/test_artifacts
+  environment:
+    # CIRCLE_ARTIFACTS is used by our test scripts
+    CIRCLE_ARTIFACTS: ~/bespokepost/questionable/test_artifacts
 
   docker:
     - image: bespokepost/ruby:2.2.10-node
