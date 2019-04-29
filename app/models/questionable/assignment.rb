@@ -1,5 +1,5 @@
 module Questionable
-  class Assignment < ActiveRecord::Base
+  class Assignment < ApplicationRecord
     belongs_to :question
     belongs_to :subject, polymorphic: true
 
@@ -7,7 +7,7 @@ module Questionable
     has_many :answered_options, through: :answers, source: :option
 
     def self.with_subject(subject)
-      if subject.kind_of?(Symbol) or subject.kind_of?(String)
+      if subject.is_a?(Symbol) || subject.is_a?(String)
         assignments = Questionable::Assignment.where(subject_type: subject)
       else
         assignments = Questionable::Assignment.where(
@@ -19,12 +19,12 @@ module Questionable
     end
 
     def answers_for_user(user)
-      self.answers.where(user_id: user.id)
+      answers.where(user_id: user.id)
     end
 
     # for ActiveAdmin
     def display_name
-      "#{self.subject_type}#{self.subject_id}: #{self.question.title}"
+      "#{subject_type}#{subject_id}: #{question.title}"
     end
   end
 end

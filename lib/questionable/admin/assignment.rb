@@ -15,7 +15,7 @@ if defined?(ActiveAdmin)
     filter :created_at
     filter :updated_at
 
-    index do 
+    index do
       column(:id) { |a| link_to a.id, admin_assignment_path(a.id) }
       column(:subject) { |a| a.subject_id ? a.subject : a.subject_type }
       column :position
@@ -31,7 +31,7 @@ if defined?(ActiveAdmin)
         f.input :subject_id, as: :number
         f.input :position
       end
-      
+
       f.actions
     end
   end

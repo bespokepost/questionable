@@ -1,5 +1,5 @@
 module Questionable
-  class Answer < ActiveRecord::Base
+  class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :assignment
     belongs_to :option

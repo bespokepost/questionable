@@ -1,3 +1,15 @@
+if ENV['CIRCLE_ARTIFACTS']
+  require 'simplecov'
+
+  dir = File.join(`printf $CIRCLE_ARTIFACTS`, "coverage")
+  SimpleCov.coverage_dir(dir)
+
+  SimpleCov.start do
+    add_filter '/spec'
+    add_filter '/vendor'
+  end
+end
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
@@ -5,7 +17,6 @@ ENV['RAILS_ENV'] ||= 'test'
 # See http://stackoverflow.com/questions/8507798/rails-3-1-plugin-gem-dummy-test-app-rspec
 require File.expand_path('../dummy/config/environment', __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl_rails'
 
 Rails.backtrace_cleaner.remove_silencers!
@@ -45,5 +56,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, :type => :controller
 end

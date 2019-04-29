@@ -16,7 +16,7 @@ if defined?(ActiveAdmin)
         f.input :input_type, as: :select,
           collection: %w(select radio checkboxes multiselect date string statement), include_blank: false
       end
-      
+
       f.actions
     end
 

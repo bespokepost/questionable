@@ -1,0 +1,29 @@
+prepare:
+  fetch:
+  - url: "https://raw.githubusercontent.com/bespokepost/code-climate-config/master/config/rubocop.yml"
+    path: "config/rubocop.yml"
+engines:
+  rubocop:
+    enabled: true
+    config: config/rubocop.yml
+  brakeman:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+  reek:
+    enabled: true
+ratings:
+  paths:
+  - app/**
+  - lib/**
+  - "**.rb"
+exclude_paths:
+- db/**/*
+- spec/**/*
+- "**/vendor/**/*"

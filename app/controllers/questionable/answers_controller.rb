@@ -5,7 +5,7 @@ module Questionable
     def create
       answers = params[:answers]
 
-      return render_error unless current_user && answers.is_a?(Hash)
+      return render_error unless current_user && answers.present?
 
       # Answers should always be a hash, and the values should be arrays,
       # even if the question input_type only supports a single answer.
@@ -55,11 +55,7 @@ module Questionable
     end
 
     def redirect_to_back
-      if request.env["HTTP_REFERER"].present?
-        redirect_to :back
-      else
-        redirect_to main_app.root_url
-      end
+      redirect_back(fallback_location: main_app.root_url)
     end
   end
 end
