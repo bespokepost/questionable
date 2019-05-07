@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Questionable
   describe Question do
-    let(:question) { create(:question, input_type: 'string') }
+    let(:question) { create(:question, input_type: Questionable::Question::InputTypes::STRING) }
     let(:subject)  { create(:user) }
 
     before do
@@ -26,12 +26,12 @@ module Questionable
       end
 
       it 'returns false if input_type is not string' do
-        question.input_type = 'date'
+        question.input_type = Questionable::Question::InputTypes::DATE
         expect(question).not_to be_string
       end
     end
 
-    %w(checkboxes multiselect radio select date).each do |kind|
+    (Questionable::Question::InputTypes::ALL - [Questionable::Question::InputTypes::STRING]).each do |kind|
       describe "##{kind}?" do
         it "returns true if input_type is #{kind}" do
           question.input_type = kind
@@ -39,7 +39,7 @@ module Questionable
         end
 
         it "returns false if input_type is not #{kind}" do
-          question.input_type = 'string'
+          question.input_type = Questionable::Question::InputTypes::STRING
           expect(question.send("#{kind}?")).to_not be_truthy
         end
       end

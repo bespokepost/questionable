@@ -7,11 +7,23 @@ module Questionable
 
     validates :title, presence: true
 
-    def accepts_multiple_answers?
-      %w(checkboxes multiselect).include?(input_type)
+    # :reek:TooManyConstants
+    module InputTypes
+      CHECKBOXES = 'checkboxes'.freeze
+      DATE = 'date'.freeze
+      MULTISELECT = 'multiselect'.freeze
+      RADIO = 'radio'.freeze
+      SELECT = 'select'.freeze
+      STRING = 'string'.freeze
+
+      ALL = [CHECKBOXES, MULTISELECT, RADIO, STRING, SELECT, DATE].freeze
     end
 
-    %w(checkboxes multiselect radio string select date).each do |type|
+    def accepts_multiple_answers?
+      [InputTypes::CHECKBOXES, InputTypes::MULTISELECT].include?(input_type)
+    end
+
+    InputTypes::ALL.each do |type|
       class_eval <<-EOV, __FILE__, __LINE__
         def #{type}?
           input_type == "#{type}"

@@ -21,10 +21,5 @@ module Questionable
     def answers_for_user(user)
       answers.where(user_id: user.id)
     end
-
-    # for ActiveAdmin
-    def display_name
-      "#{subject_type}#{subject_id}: #{question.title}"
-    end
   end
 end

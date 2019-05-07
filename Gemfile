@@ -7,12 +7,9 @@ ruby '>= 2.2'
 # development dependencies will be added by default to the :development group.
 gemspec
 
-# jquery-rails is used by the dummy application
-gem 'jquery-rails'
-
-# devise and activeadmin are used by the dummy application
+# Devise is needed for creating users for the answer spec
 gem 'devise'
-gem 'activeadmin'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'autotest-rails'

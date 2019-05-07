@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Questionable
   describe AnswersController do
-    let(:question1)     { create(:question, input_type: 'radio', title: "What's your favorite color?") }
-    let(:question2)     { create(:question, input_type: 'select', title: 'How tall are you?') }
+    let(:question1)     { create(:question, input_type: Questionable::Question::InputTypes::RADIO, title: "What's your favorite color?") }
+    let(:question2)     { create(:question, input_type: Questionable::Question::InputTypes::SELECT, title: 'How tall are you?') }
     let(:q1_option1)    { create(:option, question: question1, title: 'Blue') }
     let(:q1_option2)    { create(:option, question: question1, title: 'Red')  }
     let(:q2_option1)    { create(:option, question: question2, title: 'Blue') }
@@ -13,7 +13,7 @@ module Questionable
     let(:user)          { create(:user) }
     let(:subject_assignment) { create(:assignment, question: question1, subject: user) }
 
-    let(:date_question) { create(:question, input_type: 'date', title: 'What is your birthday?') }
+    let(:date_question) { create(:question, input_type: Questionable::Question::InputTypes::DATE, title: 'What is your birthday?') }
     let(:date_assignment) { create(:assignment, question: date_question, subject_type: 'preferences') }
 
     before do
