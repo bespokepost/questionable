@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -9,103 +8,54 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124193419) do
+ActiveRecord::Schema.define(version: 2013_01_23_233239) do
 
-  create_table "active_admin_comments", :force => true do |t|
-    t.string   "resource_id",   :null => false
-    t.string   "resource_type", :null => false
-    t.integer  "author_id"
-    t.string   "author_type"
-    t.text     "body"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "namespace"
+  create_table "questionable_answers", force: :cascade do |t|
+    t.integer   "user_id"
+    t.integer   "assignment_id"
+    t.integer   "option_id"
+    t.string    "message"
+    t.datetime  "created_at",      null: false
+    t.datetime  "updated_at",      null: false
+    t.index     ["assignment_id"], name: "index_questionable_answers_on_assignment_id"
+    t.index     ["option_id"],     name: "index_questionable_answers_on_option_id"
+    t.index     ["user_id"],       name: "index_questionable_answers_on_user_id"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
-
-  create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-  end
-
-  add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
-  add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
-
-  create_table "questionable_answers", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "assignment_id"
-    t.integer  "option_id"
-    t.string   "message"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "questionable_answers", ["assignment_id"], :name => "index_questionable_answers_on_assignment_id"
-  add_index "questionable_answers", ["option_id"], :name => "index_questionable_answers_on_option_id"
-  add_index "questionable_answers", ["user_id"], :name => "index_questionable_answers_on_user_id"
-
-  create_table "questionable_assignments", :force => true do |t|
+  create_table "questionable_assignments", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "subject_id"
     t.string   "subject_type"
     t.integer  "position"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index    ["subject_type", "subject_id", "position"], name: "index_questionable_assignments_on_subject_and_position"
   end
 
-  add_index "questionable_assignments", ["subject_type", "subject_id", "position"], :name => "index_questionable_assignments_on_subject_and_position"
-
-  create_table "questionable_options", :force => true do |t|
+  create_table "questionable_options", force: :cascade do |t|
     t.integer  "question_id"
     t.string   "title"
     t.string   "note"
     t.integer  "position"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index    ["question_id", "position"], name: "index_questionable_options_on_question_id_and_position"
   end
 
-  add_index "questionable_options", ["question_id", "position"], :name => "index_questionable_options_on_question_id_and_position"
-
-  create_table "questionable_questions", :force => true do |t|
+  create_table "questionable_questions", force: :cascade do |t|
     t.string   "category"
     t.string   "title"
     t.string   "note"
     t.string   "input_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+  create_table "users", force: :cascade do |t|
+    t.string "email",               default: "", null: false
+    t.string "encrypted_password",  default: "", null: false
   end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end
