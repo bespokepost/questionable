@@ -3,7 +3,10 @@ module Questionable
     has_many :options
     has_many :assignments
     has_many :subjects, through: :assignments
+
+    # TODO: remove `through: :assignment` after transition
     has_many :answers, through: :assignments
+    has_many :child_answers, class_name: 'Questionable::Answer', inverse_of: :parent_question
 
     validates :title, presence: true
 
