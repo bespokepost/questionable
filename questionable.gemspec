@@ -14,18 +14,18 @@ Gem::Specification.new do |s|
     'specifying select, radio, checkbox, or string input, ' +
     'and recordings users answers. ' +
     'Questions can be associated with specific objects or with string labels. ' +
-    'A form template and controller are including for displaying questions and recording answers, ' +
-    'and ActiveAdmin is supported for editing the questions and options on the back-end.'
+    'A form template and controller are included for displaying questions and recording answers.'
 
+  s.required_ruby_version = '>= 2.2.2'
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
-  s.add_dependency 'rails', '>= 3.2.22'
+  s.add_dependency 'rails', '~> 5'
   s.add_dependency 'haml'
   s.add_dependency 'formtastic'
   s.add_dependency 'stringex'
 
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'sqlite3', '~> 1.3.5'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_girl_rails'
 end

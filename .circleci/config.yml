@@ -1,0 +1,140 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/bespokepost/questionable
+  parallelism: 1
+  shell: /bin/bash --login
+  environment:
+    # CIRCLE_ARTIFACTS is used by our test scripts
+    CIRCLE_ARTIFACTS: ~/bespokepost/questionable/test_artifacts
+
+  docker:
+    - image: bespokepost/ruby:2.2.10-node
+      auth:
+        username: bespokepost
+        password: $DOCKERHUB_PASSWORD
+      environment:
+        BUNDLE_JOBS: 4
+        BUNDLE_RETRY: 3
+        BUNDLE_PATH: vendor/bundle
+        PGHOST: 127.0.0.1
+        PGUSER: spoke-dev-pg-user
+        RAILS_ENV: test
+        RACK_ENV: test
+
+    - image: circleci/postgres:10.5
+      environment:
+        POSTGRES_USER: spoke-dev-pg-user
+        POSTGRES_DB: spoke_test
+        POSTGRES_PASSWORD: ""
+
+jobs:
+  setup_dependencies:
+    <<: *defaults
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/bespokepost/questionable
+
+      - restore_cache:
+          name: Loading bundled gems cache
+          keys:
+            - spoke-ruby-2.2.10-bundle-{{ checksum "Gemfile" }}
+            - spoke-ruby-2.2.10-bundle-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      - save_cache:
+          name: Caching bundled gems
+          key: spoke-ruby-2.2.10-bundle-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Check for CVEs
+          command: bundle exec bundle-audit update
+
+      - run:
+          name: Setup database yml file
+          command: |
+            mkdir -p spec/dummy/config;
+            echo 'test:
+              database: spoke_test
+              adapter: postgresql
+              encoding: unicode
+              pool: 200
+              timeout: 5000
+              prepared_statements: false
+              username: spoke-dev-pg-user
+              host: localhost
+            ' > spec/dummy/config/database.yml
+
+      - run:
+          name: Setup test reporting
+          command: mkdir test_results test_artifacts code_climate
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - vendor/bundle
+            - spec/dummy/config/database.yml
+            - test_results
+            - test_artifacts
+            - code_climate
+
+  ruby_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/bespokepost/questionable
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      - run:
+          name: Creating test DB
+          command: |
+            bundle exec rake db:create db:schema:load --trace
+
+      - run:
+          name: Run rspec
+          command: |
+            cc-test-reporter before-build
+            bundle exec rspec --profile 10 \
+                              --tag ~local \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec/junit.xml \
+                              --format progress
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+
+      - run:
+          name: Process test results to Code Climate
+          command: |
+            cc-test-reporter format-coverage ./test_artifacts/coverage/.resultset.json \
+              -t simplecov \
+              -o "./code_climate/coverage/codeclimate.json"
+
+      - store_artifacts:
+          path: test_artifacts
+
+      - run:
+          name: Report test results to Code Climate
+          command: |
+            cc-test-reporter upload-coverage --input ./code_climate/coverage/codeclimate.json
+
+workflows:
+  version: 2
+  parallel_test_and_report:
+    jobs:
+      - setup_dependencies
+      - ruby_tests:
+          requires:
+            - setup_dependencies

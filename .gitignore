@@ -8,4 +8,5 @@ spec/dummy/tmp/
 spec/dummy/.sass-cache
 *.gem
 .ruby-version
+config/rubocop.yml
 Gemfile.lock

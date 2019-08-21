@@ -1,8 +1,0 @@
-= semantic_form_for :questionable_option, url: admin_options_path do |f|
-  = f.inputs do
-    = f.input(:question_id, :as => :hidden, :input_html => { value: question.id })
-    = f.input(:title)
-    = f.input(:note)
-    = f.input(:position)
-
-  = f.actions

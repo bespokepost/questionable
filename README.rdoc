@@ -2,11 +2,7 @@
 
 Questionable is a Rails engine that make it easier to create and answer surveys through a web interface.
 
-You can create your questions and options through the included 
-{ActiveAdmin}[https://github.com/gregbell/active_admin] interface.
-If ActiveAdmin is installed in your application, Questionable will automatically add admin pages.
-
-Then you can use the included partial template and controller for displaying 
+After creating assignments, questions and options, you can use the included partial template and controller for displaying 
 the questions and recording your users' answers.
 
 == Installation
@@ -40,7 +36,7 @@ Optionally add the following to app/assets/stylesheet/application.css:
 Create one or more Questions. Supported input_types include select, multiselect,
 radio, checkboxes, date, and string.
 
-  # input_type may be select, multiselect, radio, checkboxes, or string.
+  # input_type may be select, multiselect, radio, checkboxes, date, or string.
   q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important')
 
 Add Options, unless input_type is 'string'

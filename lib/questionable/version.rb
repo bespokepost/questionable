@@ -1,3 +1,3 @@
 module Questionable
-  VERSION = "0.3.1"
+  VERSION = "0.5.0".freeze
 end

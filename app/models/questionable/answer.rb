@@ -1,5 +1,5 @@
 module Questionable
-  class Answer < ActiveRecord::Base
+  class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :option
     belongs_to :parent_question, class_name: 'Questionable::Question', foreign_key: 'question_id'
