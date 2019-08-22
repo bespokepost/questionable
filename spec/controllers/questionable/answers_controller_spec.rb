@@ -50,7 +50,7 @@ module Questionable
       end
 
       it 'should remove old answers for answered questions' do
-        assignment1.answers << create(:answer, user_id: user.id, option_id: q1_option1.id)
+        question1.answers << create(:answer, user_id: user.id, option_id: q1_option1.id)
 
         post :create, params: { answers: { assignment1.id => [ q1_option2.id ] }, use_route: :answers }
         expect(assignment1.answered_options).to eq [q1_option2]

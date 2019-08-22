@@ -3,10 +3,7 @@ module Questionable
     has_many :options
     has_many :assignments
     has_many :subjects, through: :assignments
-
-    # TODO: remove `through: :assignment` after transition
-    has_many :answers, through: :assignments
-    has_many :child_answers, class_name: 'Questionable::Answer', inverse_of: :parent_question
+    has_many :answers
 
     validates :title, presence: true
 
@@ -22,6 +19,8 @@ module Questionable
       ALL = [CHECKBOXES, MULTISELECT, RADIO, STRING, SELECT, DATE].freeze
     end
 
+    scope :with_subject, ->(subject) { joins(:assignments).merge(Questionable::Assignment.with_subject(subject)) }
+
     def accepts_multiple_answers?
       [InputTypes::CHECKBOXES, InputTypes::MULTISELECT].include?(input_type)
     end
@@ -35,28 +34,7 @@ module Questionable
     end
 
     def answers_for_user(user)
-      existing_answers_for_user = answers.where(user_id: user.id)
-      if existing_answers_for_user.any?
-        existing_answers_for_user.to_a
-      else
-        [answers.build(user_id: user.id)]
-      end
-    end
-
-    def self.with_subject(subject)
-      assignments =
-        if subject.is_a?(Symbol) || subject.is_a?(String)
-          { subject_type: subject }
-        else
-          { subject_type: subject.class.to_s, subject_id: subject.id }
-        end
-
-      join_query = 'INNER JOIN questionable_assignments ' \
-                   'ON questionable_assignments.question_id = questionable_questions.id'
-
-      Questionable::Question.joins(join_query).
-        where(questionable_assignments: assignments).
-        order('questionable_assignments.position')
+      answers.where(user: user)
     end
   end
 end
