@@ -10,52 +10,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2013_01_23_233239) do
+ActiveRecord::Schema.define(version: 2017_01_27_203606) do
 
   create_table "questionable_answers", force: :cascade do |t|
-    t.integer   "user_id"
-    t.integer   "assignment_id"
-    t.integer   "option_id"
-    t.string    "message"
-    t.datetime  "created_at",      null: false
-    t.datetime  "updated_at",      null: false
-    t.index     ["assignment_id"], name: "index_questionable_answers_on_assignment_id"
-    t.index     ["option_id"],     name: "index_questionable_answers_on_option_id"
-    t.index     ["user_id"],       name: "index_questionable_answers_on_user_id"
+    t.integer "user_id"
+    t.integer "assignment_id"
+    t.integer "option_id"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "question_id"
+    t.index ["assignment_id"], name: "index_questionable_answers_on_assignment_id"
+    t.index ["option_id"], name: "index_questionable_answers_on_option_id"
+    t.index ["question_id"], name: "index_questionable_answers_on_question_id"
+    t.index ["user_id"], name: "index_questionable_answers_on_user_id"
   end
 
   create_table "questionable_assignments", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "subject_id"
-    t.string   "subject_type"
-    t.integer  "position"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.index    ["subject_type", "subject_id", "position"], name: "index_questionable_assignments_on_subject_and_position"
+    t.integer "question_id"
+    t.integer "subject_id"
+    t.string "subject_type"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_type", "subject_id", "position"], name: "index_questionable_assignments_on_subject_and_position"
   end
 
   create_table "questionable_options", force: :cascade do |t|
-    t.integer  "question_id"
-    t.string   "title"
-    t.string   "note"
-    t.integer  "position"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index    ["question_id", "position"], name: "index_questionable_options_on_question_id_and_position"
+    t.integer "question_id"
+    t.string "title"
+    t.string "note"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id", "position"], name: "index_questionable_options_on_question_id_and_position"
   end
 
   create_table "questionable_questions", force: :cascade do |t|
-    t.string   "category"
-    t.string   "title"
-    t.string   "note"
-    t.string   "input_type"
+    t.string "category"
+    t.string "title"
+    t.string "note"
+    t.string "input_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email",               default: "", null: false
-    t.string "encrypted_password",  default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
   end
 
 end

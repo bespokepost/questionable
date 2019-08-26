@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 ruby '>= 2.2'
 
@@ -12,9 +12,6 @@ gem 'devise'
 gem 'jquery-rails'
 
 group :development, :test do
-  gem 'autotest-rails'
-  gem 'autotest-fsevent'  # Make autotest faster on OS X
-  gem 'autotest-notification'  # show popup notices
   gem 'bundler-audit'
   gem 'test-unit'
 end
