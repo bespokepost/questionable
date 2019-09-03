@@ -11,18 +11,19 @@ module Questionable
       # even if the question input_type only supports a single answer.
       answers.each do |assignment_id, assignment_answers|
         assignment = Assignment.find(assignment_id)
-        assignment.answers.where(user_id: current_user.id).delete_all
         question = assignment.question
+        question_answers = question.answers
+        question_answers.where(user_id: current_user.id).delete_all
 
         if question.string?
           message = assignment_answers.first || ''
-          assignment.answers.create(user_id: current_user.id, message: message[0..255])
+          question_answers.create(user_id: current_user.id, message: message[0..255])
         elsif question.date?
           date_answer = Questionable::DateAnswer.new(assignment_answers.first)
           next if date_answer.empty?
 
           if date_answer.valid?
-            answer = assignment.answers.build(user_id: current_user.id, message: date_answer.to_s)
+            answer = question_answers.build(user_id: current_user.id, message: date_answer.to_s)
 
             unless answer.save
               flash[:warn] = 'Could not save date. Invalid date.'
@@ -32,7 +33,7 @@ module Questionable
           end
         else
           assignment_answers.reject(&:blank?).each do |oid|
-            assignment.answers.create(user_id: current_user.id, option_id: oid)
+            question_answers.create(user_id: current_user.id, option_id: oid)
           end
         end
       end

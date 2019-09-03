@@ -3,23 +3,14 @@ module Questionable
     belongs_to :question
     belongs_to :subject, polymorphic: true
 
-    has_many :answers
+    has_many :answers, through: :question
     has_many :answered_options, through: :answers, source: :option
 
-    def self.with_subject(subject)
-      if subject.is_a?(Symbol) || subject.is_a?(String)
-        assignments = Questionable::Assignment.where(subject_type: subject)
-      else
-        assignments = Questionable::Assignment.where(
-          subject_type: subject.class.to_s,
-          subject_id: subject.id)
-      end
+    delegate :answers_for_user, to: :question
 
-      assignments.order(:position)
-    end
-
-    def answers_for_user(user)
-      answers.where(user_id: user.id)
-    end
+    scope :with_subject, ->(subject) {
+      condition = subject.is_a?(Symbol) || subject.is_a?(String) ? { subject_type: subject } : { subject: subject }
+      where(condition).order(:position)
+    }
   end
 end

@@ -3,20 +3,26 @@ require 'spec_helper'
 module Questionable
   describe Question do
     let(:question) { create(:question, input_type: Questionable::Question::InputTypes::STRING) }
-    let(:subject)  { create(:user) }
 
-    before do
-      @assignment_to_subject = Assignment.create(question_id: question.id, subject: subject)
-      @assignment_to_symbol = Assignment.create(question_id: question.id, subject_type: :foobar)
-    end
+    describe '.with_subject' do
+      subject { Question.with_subject(assignment_subject) }
 
-    describe '#with_subject' do
-      it 'should fetch the assignment by symbol' do
-        expect(Question.with_subject(:foobar)).to eq [question]
+      context 'with a string' do
+        let(:assignment_subject) { 'foobar' }
+        let!(:assignment) { create(:assignment, question: question, subject_type: assignment_subject) }
+        it { is_expected.to eq [question] }
       end
 
-      it 'should fetch the assignments for a user and a subject' do
-        expect(Question.with_subject(subject)).to eq [question]
+      context 'with a symbol' do
+        let(:assignment_subject) { :foobar }
+        let!(:assignment) { create(:assignment, question: question, subject_type: assignment_subject) }
+        it { is_expected.to eq [question] }
+      end
+
+      context 'with an object' do
+        let(:assignment_subject) { create(:user) }
+        let!(:assignment) { create(:assignment, question: question, subject: assignment_subject) }
+        it { is_expected.to eq [question] }
       end
     end
 
