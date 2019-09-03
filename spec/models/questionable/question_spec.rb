@@ -7,22 +7,12 @@ module Questionable
     describe '.with_subject' do
       subject { Question.with_subject(assignment_subject) }
 
-      context 'with a string' do
-        let(:assignment_subject) { 'foobar' }
-        let!(:assignment) { create(:assignment, question: question, subject_type: assignment_subject) }
-        it { is_expected.to eq [question] }
-      end
-
-      context 'with a symbol' do
-        let(:assignment_subject) { :foobar }
-        let!(:assignment) { create(:assignment, question: question, subject_type: assignment_subject) }
-        it { is_expected.to eq [question] }
-      end
-
-      context 'with an object' do
-        let(:assignment_subject) { create(:user) }
-        let!(:assignment) { create(:assignment, question: question, subject: assignment_subject) }
-        it { is_expected.to eq [question] }
+      [:subject, :user].each do |factory|
+        context "with #{factory}" do
+          let(:assignment_subject) { create(factory) }
+          let!(:assignment) { create(:assignment, question: question, subject: assignment_subject) }
+          it { is_expected.to eq [question] }
+        end
       end
     end
 
