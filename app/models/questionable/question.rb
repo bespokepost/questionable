@@ -3,7 +3,7 @@ module Questionable
     has_many :options
     has_many :assignments
     has_many :subjects, through: :assignments
-    has_many :answers
+    has_many :answers, inverse_of: :question
 
     validates :title, presence: true
 
