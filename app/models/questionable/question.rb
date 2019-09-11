@@ -1,7 +1,7 @@
 module Questionable
   class Question < ApplicationRecord
     has_many :options
-    has_many :assignments
+    has_many :assignments, inverse_of: :question
     has_many :subjects, through: :assignments
     has_many :answers, inverse_of: :question
 
