@@ -2,7 +2,7 @@ module Questionable
   class Answer < ApplicationRecord
     belongs_to :user
     belongs_to :option
-    belongs_to :question
+    belongs_to :question, inverse_of: :answers
 
     def date_answer
       message.try(:to_date)
