@@ -13,9 +13,6 @@ module Questionable
 
     delegate :answers_for_user, to: :question
 
-    scope :with_subject, ->(subject) {
-      condition = subject.is_a?(Symbol) || subject.is_a?(String) ? { subject_type: subject } : { subject: subject }
-      where(condition).order(:position)
-    }
+    scope :with_subject, ->(subject) { where(subject: subject).order(:position) }
   end
 end

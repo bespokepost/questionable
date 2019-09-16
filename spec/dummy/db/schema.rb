@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_01_27_203606) do
+ActiveRecord::Schema.define(version: 2019_09_03_161741) do
 
   create_table "questionable_answers", force: :cascade do |t|
     t.integer "user_id"
@@ -47,12 +47,20 @@ ActiveRecord::Schema.define(version: 2017_01_27_203606) do
   end
 
   create_table "questionable_questions", force: :cascade do |t|
-    t.string "category"
-    t.string "title"
-    t.string "note"
-    t.string "input_type"
+    t.string "category", limit: 255
+    t.string "title", limit: 255
+    t.string "note", limit: 255
+    t.string "input_type", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "questionable_subjects", force: :cascade do |t|
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_questionable_subjects_on_slug", unique: true
   end
 
   create_table "users", force: :cascade do |t|
